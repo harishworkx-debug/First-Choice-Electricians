@@ -6,9 +6,10 @@ import { ServiceIcon } from '../components/ServiceIcon.jsx';
 import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import CTASection from '../components/CTASection.jsx';
 
-export default function ServicePage() {
+export default function ServicePage({ serviceSlug }) {
   const { slug } = useParams();
-  const service = services.find((s) => s.slug === slug);
+  const currentSlug = serviceSlug || slug;
+  const service = services.find((s) => s.slug === currentSlug);
 
   if (!service) return <Navigate to="/services" replace />;
 

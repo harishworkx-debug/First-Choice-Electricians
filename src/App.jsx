@@ -22,12 +22,14 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<ServicesList />} />
+          <Route path="/services/:slug" element={<ServicePage />} />
           {services.map((s) => (
-            <Route key={s.slug} path={`/${s.slug}`} element={<ServicePage />} />
+            <Route key={s.slug} path={`/${s.slug}`} element={<ServicePage serviceSlug={s.slug} />} />
           ))}
           <Route path="/service-areas" element={<ServiceAreasList />} />
+          <Route path="/service-areas/:slug" element={<ServiceAreaPage />} />
           {serviceAreas.map((a) => (
-            <Route key={a.slug} path={`/${a.slug}`} element={<ServiceAreaPage />} />
+            <Route key={a.slug} path={`/${a.slug}`} element={<ServiceAreaPage areaSlug={a.slug} />} />
           ))}
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/contact" element={<Contact />} />

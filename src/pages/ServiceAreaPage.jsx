@@ -6,9 +6,10 @@ import { ServiceIcon } from '../components/ServiceIcon.jsx';
 import Breadcrumbs from '../components/Breadcrumbs.jsx';
 import CTASection from '../components/CTASection.jsx';
 
-export default function ServiceAreaPage() {
+export default function ServiceAreaPage({ areaSlug }) {
   const { slug } = useParams();
-  const area = serviceAreas.find((a) => a.slug === slug);
+  const currentSlug = areaSlug || slug;
+  const area = serviceAreas.find((a) => a.slug === currentSlug);
 
   if (!area) return <Navigate to="/service-areas" replace />;
 
