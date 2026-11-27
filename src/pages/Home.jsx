@@ -13,7 +13,6 @@ import {
   Sparkles,
   Wrench,
   Search,
-  Home,
 } from 'lucide-react';
 import { business, services, serviceAreas } from '../data/business.js';
 import { usePageMeta } from '../components/Seo.js';
