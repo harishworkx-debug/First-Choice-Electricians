@@ -100,17 +100,39 @@ export default function Header() {
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <button className="flex items-center gap-1 text-slate-200 hover:text-amber-400 transition-colors py-2">
-                Services <ChevronDown className="w-4 h-4" />
-              </button>
+              <div className="flex items-center">
+                <NavLink to="/services" className={navLinkClass}>
+                  Services
+                </NavLink>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setServicesOpen(!servicesOpen);
+                  }}
+                  className="p-1 text-slate-200 hover:text-amber-400 transition-colors ml-0.5"
+                  aria-label="Toggle Services menu"
+                >
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
               {servicesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[640px]">
+                <div className="absolute top-full left-0 pt-2 w-[640px]">
                   <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl grid grid-cols-2 gap-1">
-                    <Link to="/services" className="col-span-2 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-2 hover:text-amber-300">
+                    <Link
+                      to="/services"
+                      onClick={() => setServicesOpen(false)}
+                      className="col-span-2 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-2 hover:text-amber-300"
+                    >
                       All Electrical Services →
                     </Link>
                     {services.map((s) => (
-                      <Link key={s.slug} to={`/${s.slug}`} className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-amber-400 transition-colors">
+                      <Link
+                        key={s.slug}
+                        to={`/${s.slug}`}
+                        onClick={() => setServicesOpen(false)}
+                        className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-amber-400 transition-colors"
+                      >
                         {s.name}
                       </Link>
                     ))}
@@ -124,17 +146,39 @@ export default function Header() {
               onMouseEnter={() => setAreasOpen(true)}
               onMouseLeave={() => setAreasOpen(false)}
             >
-              <button className="flex items-center gap-1 text-slate-200 hover:text-amber-400 transition-colors py-2">
-                Service Areas <ChevronDown className="w-4 h-4" />
-              </button>
+              <div className="flex items-center">
+                <NavLink to="/service-areas" className={navLinkClass}>
+                  Service Areas
+                </NavLink>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setAreasOpen(!areasOpen);
+                  }}
+                  className="p-1 text-slate-200 hover:text-amber-400 transition-colors ml-0.5"
+                  aria-label="Toggle Service Areas menu"
+                >
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${areasOpen ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
               {areasOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[640px]">
+                <div className="absolute top-full left-0 pt-2 w-[640px]">
                   <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-2xl grid grid-cols-2 gap-1">
-                    <Link to="/service-areas" className="col-span-2 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-2 hover:text-amber-300">
+                    <Link
+                      to="/service-areas"
+                      onClick={() => setAreasOpen(false)}
+                      className="col-span-2 text-amber-400 font-semibold text-xs uppercase tracking-wider px-3 py-2 hover:text-amber-300"
+                    >
                       All Service Areas →
                     </Link>
                     {serviceAreas.map((a) => (
-                      <Link key={a.slug} to={`/${a.slug}`} className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-amber-400 transition-colors">
+                      <Link
+                        key={a.slug}
+                        to={`/${a.slug}`}
+                        onClick={() => setAreasOpen(false)}
+                        className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-amber-400 transition-colors"
+                      >
                         {a.name}
                       </Link>
                     ))}
@@ -194,32 +238,80 @@ export default function Header() {
             <Link to="/" className="block py-3 text-lg font-semibold text-white border-b border-slate-800">Home</Link>
             <Link to="/about" className="block py-3 text-lg font-semibold text-white border-b border-slate-800">About</Link>
 
-            <button
-              onClick={() => setMobileSection(mobileSection === 'services' ? null : 'services')}
-              className="w-full flex items-center justify-between py-3 text-lg font-semibold text-white border-b border-slate-800"
-            >
-              Services <ChevronDown className={`w-5 h-5 transition-transform ${mobileSection === 'services' ? 'rotate-180' : ''}`} />
-            </button>
+            <div className="flex items-center justify-between py-3 border-b border-slate-800">
+              <Link
+                to="/services"
+                onClick={() => setMobileOpen(false)}
+                className="text-lg font-semibold text-white hover:text-amber-400"
+              >
+                Services
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileSection(mobileSection === 'services' ? null : 'services')}
+                className="p-1 text-slate-300 hover:text-amber-400"
+                aria-label="Toggle Services submenu"
+              >
+                <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${mobileSection === 'services' ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
             {mobileSection === 'services' && (
-              <div className="py-2 space-y-1 pl-3">
-                <Link to="/services" className="block py-2 text-amber-400 font-semibold">All Electrical Services</Link>
+              <div className="py-2 space-y-1 pl-3 bg-slate-900/50 rounded-xl mb-2">
+                <Link
+                  to="/services"
+                  onClick={() => setMobileOpen(false)}
+                  className="block py-2 text-amber-400 font-semibold text-sm"
+                >
+                  All Electrical Services →
+                </Link>
                 {services.map((s) => (
-                  <Link key={s.slug} to={`/${s.slug}`} className="block py-2 text-slate-300">{s.name}</Link>
+                  <Link
+                    key={s.slug}
+                    to={`/${s.slug}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-2 text-slate-300 hover:text-amber-400 text-sm"
+                  >
+                    {s.name}
+                  </Link>
                 ))}
               </div>
             )}
 
-            <button
-              onClick={() => setMobileSection(mobileSection === 'areas' ? null : 'areas')}
-              className="w-full flex items-center justify-between py-3 text-lg font-semibold text-white border-b border-slate-800"
-            >
-              Service Areas <ChevronDown className={`w-5 h-5 transition-transform ${mobileSection === 'areas' ? 'rotate-180' : ''}`} />
-            </button>
+            <div className="flex items-center justify-between py-3 border-b border-slate-800">
+              <Link
+                to="/service-areas"
+                onClick={() => setMobileOpen(false)}
+                className="text-lg font-semibold text-white hover:text-amber-400"
+              >
+                Service Areas
+              </Link>
+              <button
+                type="button"
+                onClick={() => setMobileSection(mobileSection === 'areas' ? null : 'areas')}
+                className="p-1 text-slate-300 hover:text-amber-400"
+                aria-label="Toggle Service Areas submenu"
+              >
+                <ChevronDown className={`w-5 h-5 transition-transform duration-200 ${mobileSection === 'areas' ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
             {mobileSection === 'areas' && (
-              <div className="py-2 space-y-1 pl-3">
-                <Link to="/service-areas" className="block py-2 text-amber-400 font-semibold">All Service Areas</Link>
+              <div className="py-2 space-y-1 pl-3 bg-slate-900/50 rounded-xl mb-2">
+                <Link
+                  to="/service-areas"
+                  onClick={() => setMobileOpen(false)}
+                  className="block py-2 text-amber-400 font-semibold text-sm"
+                >
+                  All Service Areas →
+                </Link>
                 {serviceAreas.map((a) => (
-                  <Link key={a.slug} to={`/${a.slug}`} className="block py-2 text-slate-300">{a.name}</Link>
+                  <Link
+                    key={a.slug}
+                    to={`/${a.slug}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-2 text-slate-300 hover:text-amber-400 text-sm"
+                  >
+                    {a.name}
+                  </Link>
                 ))}
               </div>
             )}
